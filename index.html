@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IoT-Based Greenhouse Monitoring</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="topbar">
+        <div class="brand">
+          <h1>IoT-Based Greenhouse with Real-Time Monitoring System for Cabbage Cultivation</h1>
+          <p>INHINYERONG KOMPYUTER</p>
+        </div>
+        <div class="status-pill">System Healthy • Live</div>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Humidity</div>
+            <div class="icon">💧</div>
+          </div>
+          <div class="value">
+            <strong id="humidityValue">68</strong>
+            <span>%</span>
+          </div>
+          <div class="trend" id="humidityTrend">↑ Good moisture</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Temperature</div>
+            <div class="icon">🌡️</div>
+          </div>
+          <div class="value">
+            <strong id="temperatureValue">24.6</strong>
+            <span>°C</span>
+          </div>
+          <div class="trend" id="temperatureTrend">Optimal range</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Soil Moisture</div>
+            <div class="icon">🌱</div>
+          </div>
+          <div class="value">
+            <strong id="soilValue">62</strong>
+            <span>%</span>
+          </div>
+          <div class="trend" id="soilTrend">Stable</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">CO₂</div>
+            <div class="icon">🌬️</div>
+          </div>
+          <div class="value">
+            <strong id="co2Value">470</strong>
+            <span>ppm</span>
+          </div>
+          <div class="trend" id="co2Trend">Balanced</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Nitrogen</div>
+            <div class="icon">🧪</div>
+          </div>
+          <div class="value">
+            <strong id="nitrogenValue">18</strong>
+            <span>mg/L</span>
+          </div>
+          <div class="trend" id="nitrogenTrend">Adequate</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Potassium</div>
+            <div class="icon">🧬</div>
+          </div>
+          <div class="value">
+            <strong id="potassiumValue">20</strong>
+            <span>mg/L</span>
+          </div>
+          <div class="trend" id="potassiumTrend">Healthy</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Phosphorus</div>
+            <div class="icon">🌿</div>
+          </div>
+          <div class="value">
+            <strong id="phosphorusValue">14</strong>
+            <span>mg/L</span>
+          </div>
+          <div class="trend" id="phosphorusTrend">Good</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Water Level</div>
+            <div class="icon">🚰</div>
+          </div>
+          <div class="value">
+            <strong id="waterValue">76</strong>
+            <span>%</span>
+          </div>
+          <div class="trend" id="waterTrend">Reservoir normal</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Light Intensity</div>
+            <div class="icon">☀️</div>
+          </div>
+          <div class="value">
+            <strong id="lightValue">720</strong>
+            <span>lux</span>
+          </div>
+          <div class="trend" id="lightTrend">Sufficient</div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Environmental Trends</h3>
+            <div class="select-wrap">
+              <label for="metricSelect">Metric:</label>
+              <select id="metricSelect">
+                <option value="humidity">Humidity</option>
+                <option value="temperature">Temperature</option>
+                <option value="soil">Soil Moisture</option>
+                <option value="co2">CO₂</option>
+                <option value="nitrogen">Nitrogen</option>
+                <option value="potassium">Potassium</option>
+                <option value="phosphorus">Phosphorus</option>
+                <option value="water">Water Level</option>
+                <option value="light">Light Intensity</option>
+              </select>
+            </div>
+          </div>
+          <canvas id="trendChart" width="900" height="280"></canvas>
+
+          <div class="control-panel">
+            <div class="switch-card">
+              <label for="lightSwitch">Light</label>
+              <label class="switch">
+                <input id="lightSwitch" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+              <div class="state">ON</div>
+            </div>
+
+            <div class="switch-card">
+              <label for="fanSwitch">Exhaust Fan</label>
+              <label class="switch">
+                <input id="fanSwitch" type="checkbox" />
+                <span class="slider"></span>
+              </label>
+              <div class="state">OFF</div>
+            </div>
+
+            <div class="switch-card">
+              <label for="pumpSwitch">Water Pump</label>
+              <label class="switch">
+                <input id="pumpSwitch" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+              <div class="state">ON</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <div class="panel-header">
+            <h3>System Status</h3>
+          </div>
+
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-top">
+                <span class="info-name">Air Quality</span>
+                <span class="badge ok">Optimal</span>
+              </div>
+              <div class="bar"><span style="width: 82%"></span></div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-top">
+                <span class="info-name">Water Tank</span>
+                <span class="badge ok">Stable</span>
+              </div>
+              <div class="bar"><span style="width: 76%"></span></div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-top">
+                <span class="info-name">Nutrient Balance</span>
+                <span class="badge warn">Monitor</span>
+              </div>
+              <div class="bar"><span style="width: 67%"></span></div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-top">
+                <span class="info-name">Lighting</span>
+                <span class="badge ok">Healthy</span>
+              </div>
+              <div class="bar"><span style="width: 86%"></span></div>
+            </div>
+          </div>
+
+          <div class="log-box">
+            <h4>Recent Activity</h4>
+            <div class="log-items" id="activityLog">
+              <div class="log-item">
+                <span>System initialized</span>
+                <span class="time">Now</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="database-section">
+        <div class="database-header">
+          <h3>📊 Database - Sensor History</h3>
+          <div class="database-controls">
+            <button onclick="exportData()">📥 Export CSV</button>
+            <button onclick="clearDatabase()">🗑️ Clear Data</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">Total Records</div>
+            <div class="stat-value" id="totalRecords">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Avg Temperature</div>
+            <div class="stat-value" id="avgTemp">0°C</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Avg Humidity</div>
+            <div class="stat-value" id="avgHumidity">0%</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Avg Soil Moisture</div>
+            <div class="stat-value" id="avgSoil">0%</div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+                <th>Soil Moisture (%)</th>
+                <th>CO₂ (ppm)</th>
+                <th>Nitrogen (mg/L)</th>
+                <th>Potassium (mg/L)</th>
+                <th>Phosphorus (mg/L)</th>
+                <th>Water Level (%)</th>
+                <th>Light (lux)</th>
+                <th>Light</th>
+                <th>Fan</th>
+                <th>Pump</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <td colspan="13" class="no-data">No data recorded yet. Data will appear as sensors update.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
